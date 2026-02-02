@@ -1,12 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 :root {
-  --bg-color: #0d0e15;
+  --bg-color: #000000;
   --text-color: #ffffff;
-  --accent-cyan: #0ff0fc;
-  --accent-pink: #ff0055;
-  --accent-yellow: #f9ff00;
-  --card-bg: #1a1b26;
+  --card-bg: #000000;
+  --border-color: #ffffff;
 }
 
 body {
@@ -16,23 +14,26 @@ body {
   color: var(--text-color);
   font-family: 'Press Start 2P', cursive;
   overflow-x: hidden;
-  line-height: 1.5;
-  -webkit-font-smoothing: none; /* Keeps fonts jagged/pixelated */
+  -webkit-font-smoothing: none; 
 }
 
-/* Scrollbar customization */
-::-webkit-scrollbar {
-  width: 12px;
-}
-::-webkit-scrollbar-track {
-  background: var(--bg-color); 
-}
-::-webkit-scrollbar-thumb {
-  background: var(--accent-cyan); 
-  border: 2px solid var(--bg-color);
+/* Scrollbar */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: #000; }
+::-webkit-scrollbar-thumb { background: #fff; border: 2px solid #000; }
+
+/* The Pixel Shine Animation Keyframes */
+@keyframes shine-slide {
+  0% { transform: translateX(-200%) skewX(-20deg); }
+  100% { transform: translateX(200%) skewX(-20deg); }
 }
 
-/* Utility to ensure images look pixelated not blurry */
-img {
-  image-rendering: pixelated;
+/* Utility classes */
+.pixel-border {
+  box-shadow: 
+    -4px 0 0 0 white,
+    4px 0 0 0 white,
+    0 -4px 0 0 white,
+    0 4px 0 0 white;
+  margin: 4px;
 }

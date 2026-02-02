@@ -1,52 +1,59 @@
 import React from 'react';
 
-const PixelButton = ({ children, onClick, variant = 'primary' }) => {
-  const colors = {
-    primary: 'var(--accent-cyan)',
-    secondary: 'var(--accent-pink)'
-  };
-
-  const bg = colors[variant];
-  const textColor = '#000';
-
-  const buttonStyle = {
-    fontFamily: '"Press Start 2P", cursive',
-    fontSize: '14px',
-    padding: '12px 24px',
-    backgroundColor: bg,
-    color: textColor,
-    border: 'none',
-    cursor: 'pointer',
-    position: 'relative',
-    boxShadow: `
-      inset -4px -4px 0px 0px rgba(0,0,0,0.5),
-      inset 4px 4px 0px 0px rgba(255,255,255,0.5)
-    `,
-    transition: 'transform 0.1s',
-    margin: '10px',
-    textTransform: 'uppercase'
-  };
-
+const PixelButton = ({ children, onClick, className = '' }) => {
   return (
-    <button 
-      style={buttonStyle}
+    <button
       onClick={onClick}
+      className={className}
+      style={{
+        position: 'relative',
+        fontFamily: '"Press Start 2P", cursive',
+        fontSize: '14px',
+        padding: '16px 32px',
+        backgroundColor: '#000',
+        color: '#fff',
+        border: '4px solid #fff',
+        cursor: 'pointer',
+        textTransform: 'uppercase',
+        overflow: 'hidden', // clips the shine
+        transition: 'all 0.1s',
+        boxShadow: '4px 4px 0px 0px #fff' // Hard shadow
+      }}
+      onMouseEnter={(e) => {
+        // Add shine class on hover via JS or simple CSS below
+        e.currentTarget.classList.add('shining');
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.classList.remove('shining');
+      }}
       onMouseDown={(e) => {
-        e.target.style.transform = 'translate(2px, 2px)';
-        e.target.style.boxShadow = `
-          inset -2px -2px 0px 0px rgba(0,0,0,0.5),
-          inset 2px 2px 0px 0px rgba(255,255,255,0.5)
-        `;
+        e.currentTarget.style.transform = 'translate(4px, 4px)';
+        e.currentTarget.style.boxShadow = 'none';
       }}
       onMouseUp={(e) => {
-        e.target.style.transform = 'translate(0, 0)';
-        e.target.style.boxShadow = `
-          inset -4px -4px 0px 0px rgba(0,0,0,0.5),
-          inset 4px 4px 0px 0px rgba(255,255,255,0.5)
-        `;
+        e.currentTarget.style.transform = 'translate(0, 0)';
+        e.currentTarget.style.boxShadow = '4px 4px 0px 0px #fff';
       }}
     >
-      {children}
+      {/* The Shine Element */}
+      <div className="shine-effect" style={{
+        position: 'absolute',
+        top: 0,
+        left: '-100%',
+        width: '50%',
+        height: '100%',
+        background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent)',
+        transform: 'skewX(-20deg)',
+      }} />
+      
+      <span style={{ position: 'relative', zIndex: 2 }}>{children}</span>
+
+      <style jsx>{`
+        button:hover .shine-effect {
+          animation: shine-slide 0.6s linear infinite; 
+          /* Use 'steps(5)' in animation-timing-function if you want choppy shine */
+        }
+      `}</style>
     </button>
   );
 };
