@@ -2,36 +2,41 @@ import React from 'react';
 
 const PixelCard = ({ children, title }) => {
   return (
-    <div style={{ marginBottom: '40px', position: 'relative' }}>
-      {/* Background Blocker to hide stars behind text */}
+    <div className="pixel-card hover-scale" style={{ 
+      marginBottom: '40px', 
+      position: 'relative',
+      height: '100%' 
+    }}>
       <div style={{
         backgroundColor: '#000',
         border: '4px solid #fff',
-        boxShadow: '8px 8px 0px 0px #333',
-        padding: '24px',
+        boxShadow: '10px 10px 0px 0px rgba(255,255,255,0.2)',
         position: 'relative',
-        zIndex: 1
+        zIndex: 1,
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column'
       }}>
-        {/* Corner Decor */}
-        <div style={{ position: 'absolute', top: -4, left: -4, width: 8, height: 8, background: '#000', border: '2px solid white' }} />
-        <div style={{ position: 'absolute', top: -4, right: -4, width: 8, height: 8, background: '#000', border: '2px solid white' }} />
-        <div style={{ position: 'absolute', bottom: -4, left: -4, width: 8, height: 8, background: '#000', border: '2px solid white' }} />
-        <div style={{ position: 'absolute', bottom: -4, right: -4, width: 8, height: 8, background: '#000', border: '2px solid white' }} />
+        {/* Card Header Strip */}
+        <div style={{
+          borderBottom: '4px solid #fff',
+          padding: '10px 15px',
+          background: '#fff',
+          color: '#000',
+          fontSize: '10px',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center'
+        }}>
+          <span>{title || 'UNTITLED_FILE'}</span>
+          <div style={{ display: 'flex', gap: '4px' }}>
+             <div style={{ width: 8, height: 8, background: '#000' }}></div>
+             <div style={{ width: 8, height: 8, background: '#000' }}></div>
+          </div>
+        </div>
 
-        {title && (
-          <h3 style={{ 
-            marginTop: '-40px', 
-            background: '#000', 
-            display: 'inline-block', 
-            padding: '0 15px',
-            borderLeft: '4px solid white',
-            borderRight: '4px solid white',
-            marginBottom: '20px'
-          }}>
-            {title}
-          </h3>
-        )}
-        <div style={{ lineHeight: '1.8' }}>
+        {/* Content */}
+        <div style={{ padding: '30px', flex: 1 }}>
           {children}
         </div>
       </div>

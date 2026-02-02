@@ -1,10 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 :root {
-  --bg-color: #000000;
+  --bg-color: #050505;
   --text-color: #ffffff;
-  --card-bg: #000000;
-  --border-color: #ffffff;
+  --accent: #ffffff;
+}
+
+html {
+  scroll-behavior: smooth; /* Native smooth scrolling for anchor links */
 }
 
 body {
@@ -12,28 +15,36 @@ body {
   padding: 0;
   background-color: var(--bg-color);
   color: var(--text-color);
-  font-family: 'Press Start 2P', cursive;
+  font-family: 'Press Start 2P', monospace;
   overflow-x: hidden;
-  -webkit-font-smoothing: none; 
+  -webkit-font-smoothing: none;
 }
 
-/* Scrollbar */
-::-webkit-scrollbar { width: 10px; }
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: #000; }
-::-webkit-scrollbar-thumb { background: #fff; border: 2px solid #000; }
+::-webkit-scrollbar-thumb { background: #555; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #fff; }
 
-/* The Pixel Shine Animation Keyframes */
-@keyframes shine-slide {
-  0% { transform: translateX(-200%) skewX(-20deg); }
-  100% { transform: translateX(200%) skewX(-20deg); }
+/* CRT Scanline Overlay Effect */
+.scanlines::before {
+  content: " ";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 100;
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none; /* Let clicks pass through */
 }
 
-/* Utility classes */
-.pixel-border {
-  box-shadow: 
-    -4px 0 0 0 white,
-    4px 0 0 0 white,
-    0 -4px 0 0 white,
-    0 4px 0 0 white;
-  margin: 4px;
+/* Utility for hover transitions */
+.hover-scale {
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.hover-scale:hover {
+  transform: scale(1.02);
 }
