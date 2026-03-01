@@ -1,93 +1,86 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-import { AnimatePresence } from 'framer-motion';
+import React from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import PixelButton from '../components/PixelButton';
+import PixelCard from '../components/PixelCard';
+import PageTransition from '../components/PageTransition';
+import { ArrowLeft } from 'lucide-react';
 
-// Components
-import StarWarp from './components/StarWarp';
-import PixelButton from './components/PixelButton';
-import { Terminal } from 'lucide-react';
+const ProjectDemo = () => {
+  const { id } = useParams(); // Gets 'alpha' or 'beta' from URL
+  const navigate = useNavigate();
 
-// Pages
-import Home from './pages/Home';
-import ProjectDemo from './pages/ProjectDemo';
+  // Fake project data
+  const projectData = {
+    alpha: { title: 'E-COMMERCE ENGINE', desc: 'Full Stack shopping experience.' },
+    beta: { title: 'AI CHAT INTERFACE', desc: 'Neural network powered chat bot.' },
+  };
 
-// This component handles the Animation Logic based on route location
-const AnimatedRoutes = () => {
-  const location = useLocation();
-
-  // Scroll to top on route change
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location.pathname]);
+  const project = projectData[id] || { title: 'UNKNOWN_PROJECT', desc: 'Data corrupted.' };
 
   return (
-    <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<Home />} />
-        <Route path="/demo/:id" element={<ProjectDemo />} />
-      </Routes>
-    </AnimatePresence>
+    <PageTransition>
+      <div style={{ padding: '40px 0', minHeight: '80vh' }}>
+        
+        {/* Back Button */}
+        <div style={{ marginBottom: '40px' }}>
+          <PixelButton onClick={() => navigate('/')}>
+             <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+               <ArrowLeft size={16} /> RETURN_TO_BASE
+             </span>
+          </PixelButton>
+        </div>
+
+        <PixelCard title={`DEMO_MODE: ${project.title}`}>
+          <div style={{ textAlign: 'center', padding: '20px' }}>
+            <p style={{ marginBottom: '40px', color: '#aaa' }}>{project.desc}</p>
+            
+            {/* The "Screen" */}
+            <div style={{ 
+              background: '#000', 
+              border: '20px solid #333', 
+              borderRadius: '10px',
+              height: '400px', 
+              position: 'relative',
+              overflow: 'hidden',
+              boxShadow: 'inset 0 0 50px rgba(0,0,0,0.8)'
+            }}>
+              {/* Scanlines for the screen specifically */}
+              <div style={{
+                position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
+                background: 'linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%)',
+                backgroundSize: '100% 4px',
+                zIndex: 10,
+                pointerEvents: 'none'
+              }} />
+
+              {/* Fake Content Inside Screen */}
+              <div style={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center', 
+                height: '100%', 
+                color: '#0f0', 
+                fontFamily: 'monospace',
+                flexDirection: 'column'
+              }}>
+                 <div style={{ fontSize: '64px', marginBottom: '20px' }}>▶</div>
+                 <div>LOADING {project.title}...</div>
+                 <div style={{ marginTop: '20px', width: '200px', height: '10px', border: '2px solid #0f0' }}>
+                    <div style={{ width: '60%', height: '100%', background: '#0f0' }}></div>
+                 </div>
+              </div>
+            </div>
+
+            <div style={{ marginTop: '40px', display: 'flex', gap: '20px', justifyContent: 'center' }}>
+              <PixelButton>GITHUB REPO</PixelButton>
+              <PixelButton>LIVE SITE</PixelButton>
+            </div>
+          </div>
+        </PixelCard>
+
+      </div>
+    </PageTransition>
   );
 };
 
-function App() {
-  return (
-    <BrowserRouter>
-      <div className="scanlines" style={{ position: 'relative', minHeight: '100vh' }}>
-        
-        {/* BACKGROUND REMAINS FIXED OUTSIDE ROUTES TO PREVENT RESET */}
-        <StarWarp />
-        
-        {/* Navbar */}
-        <nav style={{ 
-          padding: '20px 40px', 
-          display: 'flex', 
-          justifyContent: 'space-between', 
-          alignItems: 'center',
-          background: 'rgba(0,0,0,0.8)',
-          backdropFilter: 'blur(5px)',
-          borderBottom: '2px solid #fff',
-          position: 'sticky',
-          top: 0,
-          zIndex: 50,
-          height: '80px',
-          boxSizing: 'border-box'
-        }}>
-          <div style={{ fontSize: '14px', display: 'flex', alignItems: 'center', gap: '15px' }}>
-            <div style={{ background: '#fff', padding: '5px' }}>
-              <Terminal size={20} color="black" />
-            </div>
-            <span>DEV_OP_SYSTEM</span>
-          </div>
-          
-          <div style={{ display: 'flex', gap: '10px' }}>
-             {/* Simple link back to home for logo/nav */}
-             <a href="/" style={{ textDecoration: 'none' }}>
-                <PixelButton className="nav-btn">HOME</PixelButton>
-             </a>
-          </div>
-        </nav>
-
-        <main style={{ maxWidth: '1000px', margin: '0 auto', padding: '0 20px', position: 'relative', zIndex: 2 }}>
-          <AnimatedRoutes />
-        </main>
-        
-        <footer style={{ 
-          textAlign: 'center', 
-          padding: '40px', 
-          background: '#000', 
-          borderTop: '2px solid #333',
-          position: 'relative',
-          zIndex: 10,
-          color: '#555',
-          fontSize: '10px'
-        }}>
-          <p>SYSTEM STATUS: NORMAL | © 2024</p>
-        </footer>
-
-      </div>
-    </BrowserRouter>
-  );
-}
-
-export default App;
+export default ProjectDemo;
