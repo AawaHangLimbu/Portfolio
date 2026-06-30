@@ -1,0 +1,31 @@
+.navbar {
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(5px);
+  border-bottom: 2px solid #fff;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: 80px;
+  box-sizing: border-box;
+}
+
+.navbar-logo {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo-icon {
+  background: #fff;
+  padding: 5px;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 10px;
+}

@@ -1,0 +1,25 @@
+.pixel-button {
+  background: #000;
+  color: #fff;
+  border: 2px solid #fff;
+  padding: 12px 24px;
+  font-family: monospace;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.pixel-button:hover {
+  background: #fff;
+  color: #000;
+  box-shadow: 4px 4px 0 rgba(255, 255, 255, 0.3);
+  transform: translate(-2px, -2px);
+}
+
+.pixel-button:active {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}

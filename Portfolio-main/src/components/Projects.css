@@ -1,0 +1,59 @@
+.projects-section {
+  padding-top: 80px;
+  margin-bottom: 100px;
+}
+
+.projects-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 60px;
+}
+
+.projects-header-icon {
+  margin-right: 20px;
+}
+
+.projects-header h2 {
+  font-size: 24px;
+  margin: 0;
+}
+
+.projects-header-line {
+  flex: 1;
+  height: 4px;
+  background: #fff;
+  margin-left: 20px;
+  opacity: 0.3;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 50px;
+}
+
+.project-image-placeholder {
+  height: 150px;
+  background: #111;
+  margin-bottom: 20px;
+  border: 2px dashed #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-title {
+  margin-top: 0;
+}
+
+.project-description {
+  font-size: 12px;
+  line-height: 1.8;
+  color: #ccc;
+  margin-bottom: 20px;
+}
+
+.project-actions {
+  display: flex;
+  gap: 10px;
+}
